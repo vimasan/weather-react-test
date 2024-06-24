@@ -1,12 +1,16 @@
 import './App.css'
+// import { useState } from "react"
+import { InputCity } from './components/InputCity';
+
 
 function App() {
 
   return (
     <>
-      <h1>Weather Application</h1>
+      <InputCity />
+
     </>
-  )
+  );
 }
 
-export default App
+export default App;
