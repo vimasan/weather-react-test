@@ -9,15 +9,18 @@ import { useRef } from "react";
 import { getWeatherForCity } from "../api/weatherApi";
 import { WeatherModel } from "../models/weatherModel";
 
-export const InputCity = () => {
+interface InputCityProps {
+  addWeatherCity: (weatherCity: WeatherModel) => void;
+}
+
+export const InputCity = ({ addWeatherCity }: InputCityProps) => {
   const toast = useRef<Toast>(null);
   const [city, setCity] = useState<string>('');
-  const [weather, setWeather] = useState<WeatherModel>({} as WeatherModel);
 
   const findWeather = async ()  => {
     try{
-      const data = await getWeatherForCity(city);
-      setWeather(data);
+      const weather = await getWeatherForCity(city);
+      addWeatherCity(weather);
     } catch (error) {
       const message = `City ${city} not found`;
       toast.current?.show({severity:'error', summary: 'Error', detail: message, life: 6000});
@@ -38,7 +41,6 @@ export const InputCity = () => {
           <Button icon="pi pi-search" className="p-button-warning" onClick={findWeather}/>
         </div>
       </Fieldset >
-      <p>{weather ? JSON.stringify(weather) : 'leyendo'}</p>
     </>
   );
 }
