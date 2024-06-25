@@ -1,7 +1,8 @@
 import './App.css'
-import { useState } from "react"
+import { useState } from 'react'
 import { InputCity } from './components/InputCity';
 import { WeatherModel } from './models/weatherModel';
+import { DataScrollerWeather } from './components/DataScrollerWeather';
 
 function App() {
 
@@ -11,10 +12,15 @@ function App() {
     setWeatherCityList([...weatherCityList, weatherCity ]);
   }
 
+  const removeWeatherCity = (id: number) => {
+    const weatherCityListUpdate = weatherCityList.filter(weatherCity => weatherCity.id !== id);
+    setWeatherCityList(weatherCityListUpdate);
+  }
+
   return (
     <>
       <InputCity addWeatherCity={addWeatherCity}/>
-      <p>{weatherCityList ? JSON.stringify(weatherCityList) : 'reading...'}</p>
+      <DataScrollerWeather weatherCityList={weatherCityList} removeWeatherCity={removeWeatherCity}/>
     </>
   );
 }
