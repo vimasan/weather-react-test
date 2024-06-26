@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, FormEvent } from "react"
 
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
@@ -29,18 +29,27 @@ export const InputCity = ({ addWeatherCity }: InputCityProps) => {
     setCity('');
   }
 
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    findWeather();
+  }
+
+  const disabled = city.trim().length === 0;
+
   return (
     <>
       <Toast ref={toast} />
-      <Fieldset legend="Weather Application">
-        <div className="p-inputgroup flex-1">
-          <FloatLabel>
-            <InputText id="City" value={city} onChange={(e) => setCity(e.target.value)} keyfilter={'alpha'}/>
-            <label htmlFor="City">City</label>
-          </FloatLabel>
-          <Button icon="pi pi-search" className="p-button-warning" onClick={findWeather}/>
-        </div>
-      </Fieldset >
+      <form className="p-fluid" onSubmit={onSubmit}>
+        <Fieldset legend="Weather Application">
+          <div className="p-inputgroup flex-1">
+            <FloatLabel>
+              <InputText id="City" value={city} onChange={(e) => setCity(e.target.value)} keyfilter={'alpha'}/>
+              <label htmlFor="City">City</label>
+            </FloatLabel>
+            <Button icon="pi pi-search" className="p-button-info" type="submit" disabled={disabled}/>
+          </div>
+        </Fieldset >
+      </form>
     </>
   );
 }
