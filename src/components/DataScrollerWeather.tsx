@@ -1,7 +1,11 @@
-import { WeatherModel } from '../models/weatherModel';
+import {useState} from 'react'
 
 import { Button } from 'primereact/button';
 import { DataScroller } from 'primereact/datascroller';
+import { Dialog } from 'primereact/dialog';
+import { ViewWeather } from './ViewWeather';
+
+import { WeatherModel } from '../models/weatherModel';
 
 interface DataScrollerWeatherProps {
   weatherCityList: WeatherModel[];
@@ -11,6 +15,13 @@ interface DataScrollerWeatherProps {
 const imageWeather = (name: string) => `https://openweathermap.org/img/wn/${name}@2x.png`;
 
 export const DataScrollerWeather = ({ weatherCityList, removeWeatherCity }: DataScrollerWeatherProps) => {
+  const [visible, setVisible] = useState<boolean>(false);
+  const [data, setData] = useState<WeatherModel>({} as WeatherModel);
+
+  const viewDataWeather = (weatherCity: WeatherModel) => {
+    setData(weatherCity);
+    setVisible(true);
+  }
 
   const itemTemplate = (data: WeatherModel) => {
     const image = imageWeather(data.weather[0].icon);
@@ -32,18 +43,21 @@ export const DataScrollerWeather = ({ weatherCityList, removeWeatherCity }: Data
                         </div>
                     </div>
                     <div className="flex flex-row lg:flex-column align-items-center lg:align-items-end gap-4 lg:gap-2">
-                        <Button icon="pi pi-trash" label="Remove" onClick={() => removeWeatherCity(data.id)}></Button>
-                        <Button icon="pi pi-eye" label="View" ></Button>
+                        <Button icon="pi pi-trash" label="Remove" type='button' onClick={() => removeWeatherCity(data.id)}></Button>
+                        <Button icon="pi pi-eye" label="View" type='button' onClick={() => viewDataWeather(data)}></Button>
                     </div>
                 </div>
             </div>
         </div>
     );
-};
+  };
 
   return (
     <>
-      <DataScroller value={weatherCityList} itemTemplate={itemTemplate} rows={5} buffer={0.4} header="List of Weather for Cities" />
+      <DataScroller value={weatherCityList} itemTemplate={itemTemplate} rows={5} buffer={0.4} header="Cities" />
+      <Dialog header={data.name} visible={visible} style={{ width: '50vw' }} onHide={() => {if (!visible) return; setVisible(false); }}>
+        <ViewWeather data={data} />
+      </Dialog>
     </>
   )
 }

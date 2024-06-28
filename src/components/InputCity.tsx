@@ -7,6 +7,7 @@ import { FloatLabel } from "primereact/floatlabel";
 import { Toast } from 'primereact/toast';
 import { useRef } from "react";
 import { getWeatherForCity } from "../api/weatherApi";
+
 import { WeatherModel } from "../models/weatherModel";
 
 interface InputCityProps {
