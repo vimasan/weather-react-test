@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { InputCity } from './components/InputCity';
-import { DataScrollerWeather } from './components/DataScrollerWeather';
+import { DataScrollerWeather } from './components/dataScrollerWeather/DataScrollerWeather';
 // import { Button } from "primereact/button";
 
 import { WeatherModel } from './models/weatherModel';
