@@ -92,6 +92,11 @@
   display: flex ;
 }
 
+.weather-details li span {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
 .weather-footer {
   display: flex;
   justify-content: end;
@@ -104,8 +109,3 @@
   cursor: pointer;
 }
 
-.bolded {
-  font-weight: bold;
-  margin-right: 8px;
-
-}

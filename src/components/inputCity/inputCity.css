@@ -1,0 +1,14 @@
+.input-city {
+  min-width: 600px;
+  background-color: #007bc1;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 35px 25px;
+  margin-bottom: 15px;
+}
+
+.input-city label {
+  color: #fff;
+  float: left;
+  margin-bottom: 6px;
+}

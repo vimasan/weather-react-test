@@ -19,8 +19,9 @@ const capitalizefirstLetter = (phrase: string) : string => {
   return phrase.charAt(0).toUpperCase() + phrase.slice(1);
 }
 
-const lastUpdate = (dt: number) : string => {
-  return new Date(dt * 1000).toLocaleTimeString();
+const lastUpdate = (time: number) : string | null => {
+  if(!time) return null;
+  return new Date(time * 1000).toLocaleTimeString();
 }
 
 export const DataScrollerWeather = ({ weatherCityList, removeWeatherCity }: DataScrollerWeatherProps) => {
@@ -56,9 +57,9 @@ export const DataScrollerWeather = ({ weatherCityList, removeWeatherCity }: Data
             </div>
             <div className="weather-details">
                 <ul>
-                    <li><span className='bolded'>Humidity:</span> {data.main.humidity} %</li>
-                    <li><span className='bolded'>Pressure:</span> {data.main.pressure} mbar</li>
-                    <li><span className='bolded'>Wind:</span> {data.wind.speed} km/h</li>
+                    <li><span>Humidity:</span> {data.main.humidity} %</li>
+                    <li><span>Pressure:</span> {data.main.pressure} mbar</li>
+                    <li><span>Wind:</span> {data.wind.speed} km/h</li>
                 </ul>
             </div>
         </div>

@@ -1,14 +1,12 @@
-import { useState, FormEvent } from "react"
+import { useState, FormEvent, useRef } from "react"
 
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
-import { Fieldset } from 'primereact/fieldset';
-import { FloatLabel } from "primereact/floatlabel";
 import { Toast } from 'primereact/toast';
-import { useRef } from "react";
-import { getWeatherForCity } from "../api/weatherApi";
 
-import { WeatherModel } from "../models/weatherModel";
+import { getWeatherForCity } from "../../api/weatherApi";
+import { WeatherModel } from "../../models/weatherModel";
+import './inputCity.css'
 
 interface InputCityProps {
   addWeatherCity: (weatherCity: WeatherModel) => void;
@@ -40,17 +38,15 @@ export const InputCity = ({ addWeatherCity }: InputCityProps) => {
   return (
     <>
       <Toast ref={toast} />
-      <form className="p-fluid" onSubmit={onSubmit}>
-        <Fieldset legend="Weather Application">
-          <div className="p-inputgroup flex-1">
-            <FloatLabel>
-              <InputText id="City" value={city} onChange={(e) => setCity(e.target.value)} keyfilter={'alpha'}/>
-              <label htmlFor="City">City</label>
-            </FloatLabel>
-            <Button icon="pi pi-search" className="p-button-info" type="submit" disabled={disabled}/>
+      <div className="input-city">
+        <form className="p-fluid" onSubmit={onSubmit}>
+          <label className="" htmlFor="City">City</label>
+          <div className="p-inputgroup">
+            <InputText value={city} onChange={(e) => setCity(e.target.value)} keyfilter={'alpha'}/>
+            <Button icon="pi pi-search" className="p-button-success" type="submit" disabled={disabled}/>
           </div>
-        </Fieldset >
-      </form>
+        </form>
+      </div>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { InputCity } from './components/InputCity';
+import { InputCity } from './components/inputCity/InputCity';
 import { DataScrollerWeather } from './components/dataScrollerWeather/DataScrollerWeather';
 // import { Button } from "primereact/button";
 
@@ -22,6 +22,7 @@ function App() {
 
   return (
     <>
+      <div className='title'>Weather App</div>
       <InputCity addWeatherCity={addWeatherCity}/>
       {/* <Button icon="pi pi-refresh" /> */}
       <DataScrollerWeather weatherCityList={weatherCityList} removeWeatherCity={removeWeatherCity}/>
