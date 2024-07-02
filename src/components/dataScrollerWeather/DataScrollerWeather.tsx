@@ -2,33 +2,26 @@ import {useState} from 'react'
 
 import { DataScroller } from 'primereact/datascroller';
 import { Dialog } from 'primereact/dialog';
-import { ViewWeather } from '../ViewWeather';
+import { ViewInfo } from '../ViewInfo/ViewInfo';
 
 import { WeatherModel } from '../../models/weatherModel';
 import './DataScrollerWeather.css'
+import { ForecastModel } from '../../models/forecastModel';
+import { getForecastForCityId } from '../../api/weatherApi';
+import { capitalizefirstLetter, imageWeather, lastUpdate } from '../Utils';
 
 interface DataScrollerWeatherProps {
   weatherCityList: WeatherModel[];
   removeWeatherCity: (id: number) => void;
 }
 
-const imageWeather = (name: string) => `https://openweathermap.org/img/wn/${name}@2x.png`;
-
-const capitalizefirstLetter = (phrase: string) : string => {
-  if (!phrase) return phrase;
-  return phrase.charAt(0).toUpperCase() + phrase.slice(1);
-}
-
-const lastUpdate = (time: number) : string | null => {
-  if(!time) return null;
-  return new Date(time * 1000).toLocaleTimeString();
-}
-
 export const DataScrollerWeather = ({ weatherCityList, removeWeatherCity }: DataScrollerWeatherProps) => {
   const [visible, setVisible] = useState<boolean>(false);
   const [selectedCity, setSelectedCity] = useState<WeatherModel>({} as WeatherModel);
+  const [forecast, setForecast] = useState<ForecastModel | null>(null);
 
-  const viewDataWeather = (weatherCity: WeatherModel) => {
+  const viewDataWeather = async (weatherCity: WeatherModel) => {
+    setForecast(await getForecastForCityId(weatherCity.id));
     setSelectedCity(weatherCity);
     setVisible(true);
   }
@@ -47,10 +40,9 @@ export const DataScrollerWeather = ({ weatherCityList, removeWeatherCity }: Data
         </div>
         <div className="weather-content">
             <div className="weather-main">
-                <img src={image} alt="Icono del clima"/>
+                <img src={image} alt="Weather image"/>
                 <div className="temperature">{data.main.temp}º</div>
                 <div>
-
                     <div className="condition left-align">{capitalizefirstLetter(data.weather[0]?.description)}</div>
                     <div className="feels-like left-align">Thermal sensation: {data.main.feels_like}º</div>
                 </div>
@@ -70,8 +62,8 @@ export const DataScrollerWeather = ({ weatherCityList, removeWeatherCity }: Data
   return (
     <>
       <DataScroller value={weatherCityList} itemTemplate={itemTemplate} rows={5} buffer={0.4} header="Cities" />
-      <Dialog header={selectedCity.name} visible={visible} style={{ width: '50vw' }} onHide={() => {if (!visible) return; setVisible(false); }}>
-        <ViewWeather data={selectedCity} />
+      <Dialog header={selectedCity.name} visible={visible} style={{ width: '55vw' }} onHide={() => {if (!visible) return; setVisible(false); }}>
+        <ViewInfo selectedCity={selectedCity} forecastCity={forecast} />
       </Dialog>
     </>
   )
