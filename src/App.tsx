@@ -15,6 +15,28 @@ function App() {
     setWeatherCityList([...weatherCityList, weatherCity ]);
   }
 
+  const updateWeatherCity = (weatherCity: WeatherModel) => {
+    setWeatherCityList(prevWeatherCityList => {
+      const newWeatherCityList = [...prevWeatherCityList];
+      const index = newWeatherCityList.findIndex(city => city.id === weatherCity.id);
+      newWeatherCityList[index] = weatherCity;
+      return newWeatherCityList;
+    });
+  }
+
+
+  const processWeatherCity = (weatherCity: WeatherModel) => {
+    const weatherCityExisting = weatherCityList.find(city => city.id === weatherCity.id)
+
+    if(weatherCityExisting === undefined) {
+      addWeatherCity(weatherCity);
+    } else {
+      updateWeatherCity(weatherCity);
+    }
+
+    return;
+  }
+
   const removeWeatherCity = (id: number) => {
     const weatherCityListUpdate = weatherCityList.filter(weatherCity => weatherCity.id !== id);
     setWeatherCityList(weatherCityListUpdate);
@@ -23,7 +45,7 @@ function App() {
   return (
     <>
       <div className='title'>Weather App</div>
-      <InputCity addWeatherCity={addWeatherCity}/>
+      <InputCity addWeatherCity={processWeatherCity}/>
       {/* <Button icon="pi pi-refresh" /> */}
       <DataScrollerWeather weatherCityList={weatherCityList} removeWeatherCity={removeWeatherCity}/>
     </>

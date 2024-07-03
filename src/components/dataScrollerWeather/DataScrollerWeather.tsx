@@ -61,7 +61,7 @@ export const DataScrollerWeather = ({ weatherCityList, removeWeatherCity }: Data
 
   return (
     <>
-      <DataScroller value={weatherCityList} itemTemplate={itemTemplate} rows={5} buffer={0.4} header="Cities" />
+      <DataScroller value={weatherCityList} itemTemplate={itemTemplate} rows={25} buffer={0.4} header="Cities" />
       <Dialog header={selectedCity.name} visible={visible} style={{ width: '55vw' }} onHide={() => {if (!visible) return; setVisible(false); }}>
         <ViewInfo selectedCity={selectedCity} forecastCity={forecast} />
       </Dialog>
