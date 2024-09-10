@@ -1,7 +1,8 @@
 import { WeatherModel } from '../../models/weatherModel';
 import { ForecastModel } from '../../models/forecastModel';
-import './ViewInfo.css'
 import { imageWeather, dataTimerFormater } from '../Utils';
+
+import './ViewInfo.css';
 
 interface ViewInfoProps {
   selectedCity: WeatherModel;
@@ -33,5 +34,5 @@ export const ViewInfo = ({ selectedCity, forecastCity }: ViewInfoProps) => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};

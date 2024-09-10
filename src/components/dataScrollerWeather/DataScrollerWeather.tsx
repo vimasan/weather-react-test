@@ -1,14 +1,12 @@
-import {useState} from 'react'
-
+import {useState} from 'react';
 import { DataScroller } from 'primereact/datascroller';
 import { Dialog } from 'primereact/dialog';
 import { ViewInfo } from '../ViewInfo/ViewInfo';
-
 import { WeatherModel } from '../../models/weatherModel';
-import './DataScrollerWeather.css'
 import { ForecastModel } from '../../models/forecastModel';
 import { getForecastForCityId } from '../../api/weatherApi';
 import { capitalizefirstLetter, imageWeather, lastUpdate } from '../Utils';
+import './DataScrollerWeather.css';
 
 interface DataScrollerWeatherProps {
   weatherCityList: WeatherModel[];
@@ -24,7 +22,7 @@ export const DataScrollerWeather = ({ weatherCityList, removeWeatherCity }: Data
     setForecast(await getForecastForCityId(weatherCity.id));
     setSelectedCity(weatherCity);
     setVisible(true);
-  }
+  };
 
   const itemTemplate = (data: WeatherModel) => {
     const image = imageWeather(data.weather[0].icon);
@@ -66,5 +64,5 @@ export const DataScrollerWeather = ({ weatherCityList, removeWeatherCity }: Data
         <ViewInfo selectedCity={selectedCity} forecastCity={forecast} />
       </Dialog>
     </>
-  )
-}
+  );
+};

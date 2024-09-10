@@ -21,7 +21,7 @@ export const getWeatherForCity = async (city: string) : Promise<WeatherModel> =>
   });
 
   return response.data;
-}
+};
 
 export const getForecastForCityId = async (id: number) : Promise<ForecastModel> => {
 
@@ -36,4 +36,4 @@ export const getForecastForCityId = async (id: number) : Promise<ForecastModel> 
   });
 
   return response.data;
-}
+};

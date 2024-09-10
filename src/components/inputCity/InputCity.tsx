@@ -1,12 +1,12 @@
-import { useState, FormEvent, useRef } from "react"
+import { useState, FormEvent, useRef } from 'react';
 
-import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
+import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
 import { Toast } from 'primereact/toast';
 
-import { getWeatherForCity } from "../../api/weatherApi";
-import { WeatherModel } from "../../models/weatherModel";
-import './inputCity.css'
+import { getWeatherForCity } from '../../api/weatherApi';
+import { WeatherModel } from '../../models/weatherModel';
+import './inputCity.css';
 
 interface InputCityProps {
   addWeatherCity: (weatherCity: WeatherModel) => void;
@@ -26,12 +26,12 @@ export const InputCity = ({ addWeatherCity }: InputCityProps) => {
     }
 
     setCity('');
-  }
+  };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     findWeather();
-  }
+  };
 
   const disabled = city.trim().length === 0;
 
@@ -49,4 +49,4 @@ export const InputCity = ({ addWeatherCity }: InputCityProps) => {
       </div>
     </>
   );
-}
+};
