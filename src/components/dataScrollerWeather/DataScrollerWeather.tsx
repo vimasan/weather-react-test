@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import { DataScroller } from 'primereact/datascroller';
 import { Dialog } from 'primereact/dialog';
 import { ViewInfo } from '../ViewInfo/ViewInfo';
@@ -6,14 +6,12 @@ import { WeatherModel } from '../../models/weatherModel';
 import { ForecastModel } from '../../models/forecastModel';
 import { getForecastForCityId } from '../../api/weatherApi';
 import { capitalizefirstLetter, imageWeather, lastUpdate } from '../Utils';
+import { useContext } from 'react';
+import { WeatherContext } from '../../context/WeatherContext';
 import './DataScrollerWeather.css';
 
-interface DataScrollerWeatherProps {
-  weatherCityList: WeatherModel[];
-  removeWeatherCity: (id: number) => void;
-}
-
-export const DataScrollerWeather = ({ weatherCityList, removeWeatherCity }: DataScrollerWeatherProps) => {
+export const DataScrollerWeather = () => {
+  const { weatherCityList, removeWeatherCity } = useContext(WeatherContext);
   const [visible, setVisible] = useState<boolean>(false);
   const [selectedCity, setSelectedCity] = useState<WeatherModel>({} as WeatherModel);
   const [forecast, setForecast] = useState<ForecastModel | null>(null);

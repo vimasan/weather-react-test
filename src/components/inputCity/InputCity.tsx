@@ -5,21 +5,19 @@ import { InputText } from 'primereact/inputtext';
 import { Toast } from 'primereact/toast';
 
 import { getWeatherForCity } from '../../api/weatherApi';
-import { WeatherModel } from '../../models/weatherModel';
+import { useContext } from 'react';
+import { WeatherContext } from '../../context/WeatherContext';
 import './inputCity.css';
 
-interface InputCityProps {
-  addWeatherCity: (weatherCity: WeatherModel) => void;
-}
-
-export const InputCity = ({ addWeatherCity }: InputCityProps) => {
+export const InputCity = () => {
+  const { processWeatherCity } = useContext(WeatherContext);
   const toast = useRef<Toast>(null);
   const [city, setCity] = useState<string>('');
 
   const findWeather = async ()  => {
     try{
       const weather = await getWeatherForCity(city);
-      addWeatherCity(weather);
+      processWeatherCity(weather);
     } catch (error) {
       const message = `City ${city} not found`;
       toast.current?.show({severity:'error', summary: 'Error', detail: message, life: 6000});
