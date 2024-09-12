@@ -1,7 +1,7 @@
-import { WeatherModel } from "../models/weatherModel";
+import { WeatherInterface } from "../interfaces/weatherInterface";
 
 export interface WeatherContextValue {
-  weatherCityList: WeatherModel[];
-  processWeatherCity: (weatherCity: WeatherModel) => void;
+  weatherCityList: WeatherInterface[];
+  processWeatherCity: (weatherCity: WeatherInterface) => void;
   removeWeatherCity: (id: number) => void;
 }

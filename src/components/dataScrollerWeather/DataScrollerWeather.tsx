@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { DataScroller } from 'primereact/datascroller';
 import { Dialog } from 'primereact/dialog';
 import { ViewInfo } from '../ViewInfo/ViewInfo';
-import { WeatherModel } from '../../models/weatherModel';
-import { ForecastModel } from '../../models/forecastModel';
+import { WeatherInterface } from '../../interfaces/weatherInterface';
+import { ForecastInterface } from '../../interfaces/forecastInterface';
 import { getForecastForCityId } from '../../api/weatherApi';
 import { capitalizefirstLetter, imageWeather, lastUpdate } from '../Utils';
 import { useContext } from 'react';
@@ -13,16 +13,16 @@ import './DataScrollerWeather.css';
 export const DataScrollerWeather = () => {
   const { weatherCityList, removeWeatherCity } = useContext(WeatherContext);
   const [visible, setVisible] = useState<boolean>(false);
-  const [selectedCity, setSelectedCity] = useState<WeatherModel>({} as WeatherModel);
-  const [forecast, setForecast] = useState<ForecastModel | null>(null);
+  const [selectedCity, setSelectedCity] = useState<WeatherInterface>({} as WeatherInterface);
+  const [forecast, setForecast] = useState<ForecastInterface | null>(null);
 
-  const viewDataWeather = async (weatherCity: WeatherModel) => {
+  const viewDataWeather = async (weatherCity: WeatherInterface) => {
     setForecast(await getForecastForCityId(weatherCity.id));
     setSelectedCity(weatherCity);
     setVisible(true);
   };
 
-  const itemTemplate = (data: WeatherModel) => {
+  const itemTemplate = (data: WeatherInterface) => {
     const image = imageWeather(data.weather[0].icon);
     return (
       <div className="weather-card">

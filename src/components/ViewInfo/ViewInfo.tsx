@@ -1,12 +1,12 @@
-import { WeatherModel } from '../../models/weatherModel';
-import { ForecastModel } from '../../models/forecastModel';
+import { WeatherInterface } from '../../interfaces/weatherInterface';
+import { ForecastInterface } from '../../interfaces/forecastInterface';
 import { imageWeather, dataTimerFormater } from '../Utils';
 
 import './ViewInfo.css';
 
 interface ViewInfoProps {
-  selectedCity: WeatherModel;
-  forecastCity: ForecastModel | null;
+  selectedCity: WeatherInterface;
+  forecastCity: ForecastInterface | null;
 }
 
 export const ViewInfo = ({ selectedCity, forecastCity }: ViewInfoProps) => {

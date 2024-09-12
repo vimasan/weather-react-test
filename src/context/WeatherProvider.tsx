@@ -1,18 +1,18 @@
 import { ReactNode, useState } from 'react';
 import { WeatherContext } from './WeatherContext.tsx';
-import { WeatherModel } from '../models/weatherModel';
+import { WeatherInterface } from '../interfaces/weatherInterface.ts';
 
 export const WeatherProvider = ({ children } : { children: ReactNode }) => {
 
-  const [weatherCityList, setWeatherCityList] = useState<WeatherModel[]>(
-    [] as WeatherModel[]
+  const [weatherCityList, setWeatherCityList] = useState<WeatherInterface[]>(
+    [] as WeatherInterface[]
   );
 
-  const addWeatherCity = (weatherCity: WeatherModel) => {
+  const addWeatherCity = (weatherCity: WeatherInterface) => {
     setWeatherCityList([...weatherCityList, weatherCity]);
   };
 
-  const updateWeatherCity = (weatherCity: WeatherModel) => {
+  const updateWeatherCity = (weatherCity: WeatherInterface) => {
     setWeatherCityList((prevWeatherCityList) => {
       const newWeatherCityList = [...prevWeatherCityList];
       const index = newWeatherCityList.findIndex(
@@ -23,7 +23,7 @@ export const WeatherProvider = ({ children } : { children: ReactNode }) => {
     });
   };
 
-  const processWeatherCity = (weatherCity: WeatherModel) => {
+  const processWeatherCity = (weatherCity: WeatherInterface) => {
     const weatherCityExisting = weatherCityList.find(
       (city) => city.id === weatherCity.id
     );
